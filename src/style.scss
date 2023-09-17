@@ -1,0 +1,34 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-create-block-ctcl-product-display {
+
+	padding: 2px;
+}
+
+
+
+
+@keyframes zoomOnHover {
+	from {
+		transform: scale(1,1);
+		
+	}
+	to {
+		transform: scale(1.1,1.1);
+		
+	}
+  }
+
+
+  .ctcl-product-display:hover{
+	animation: zoomOnHover 1s linear;
+	transform: scale(1.1,1.1);
+}
+.ctcl-product-display h5{
+	text-transform: none;
+}
