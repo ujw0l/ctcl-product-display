@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Ctcl Product Display
+ * Plugin Name:       CTCL Product Display
  * Description:       Product display block for CT Commerce Lite ecommerce plugin.
  * Requires at least: 6.3.1
  * Requires PHP:      7.0

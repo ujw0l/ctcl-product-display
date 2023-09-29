@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "create-block/ctcl-product-display",
+	"name": "ctcl-product-display/ctcl-product-display",
 	"version": "0.1.0",
-	"title": "Ctcl Product Display",
+	"title": "CTCL Product Display",
 	"category": "ctc-lite-blocks",
 	"icon": "editor-insertmore",
 	"example": {},

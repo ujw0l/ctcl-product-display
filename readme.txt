@@ -1,4 +1,4 @@
-=== Ctcl Product Display ===
+=== CTCL Product Display ===
 Contributors:      UjW0L        
 Tags:              block, ctc-lite, display
 Tested up to:      6.3.1
