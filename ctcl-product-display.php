@@ -34,8 +34,7 @@ add_action( 'init', 'ctcl_product_display_block_init' );
 	 */
 	 add_action( 'admin_notices', function(){
 		 echo '<div class="notice notice-error is-dismissible"><p>';
-		 esc_html_e( 'CTCL product display plugin requires CTC Lite plugin installed and activated to work, please do so first.', ' ctcl-product-display' );
-		  echo '<a href="'.admin_url('plugin-install.php').'?tab=plugin-information&plugin=ctc-lite&TB_iframe=true&width=640&height=500" class="thickbox">'.__('Click Here to install it',' ctcl-product-display').' </a>'; 
-		 echo '</p></div>';
+		 esc_html_e( 'CTCL product display plugin requires CTC Lite plugin installed and activated to work, please do so first.', 'ctcl-product-display' );
+		 echo esc_html('<a href="'.admin_url('plugin-install.php').'?tab=plugin-information&plugin=ctc-lite&TB_iframe=true&width=640&height=500" class="thickbox">'.__('Click Here to install it','ctcl-product-display')).' </a>'; 
 	 } );
  }
