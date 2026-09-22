@@ -19,6 +19,10 @@
     }
   },
   "attributes": {
+    "buttonColor": {
+      "type": "string",
+      "default": ""
+    },
     "name": {
       "type": "string",
       "default": ""

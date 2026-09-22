@@ -16,6 +16,7 @@
 		}
 	},
 	"attributes": {
+		"buttonColor": { "type": "string", "default": "" },
 		"name": { "type": "string", "default": "" },
 		"image": { "type": "string", "default": "" },
 		"pageLink": { "type": "string", "default": "" },

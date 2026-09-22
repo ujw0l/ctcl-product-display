@@ -8,6 +8,7 @@ import {
 } from '@wordpress/components';
 import {
 	InspectorControls,
+	PanelColorSettings,
 	MediaUpload,
 	MediaUploadCheck,
 	useBlockProps,
@@ -15,6 +16,7 @@ import {
 import { __ } from '@wordpress/i18n';
 
 import './editor.scss';
+import buttonStyle from './button-style';
 
 const getCurrency = () =>
 	typeof ctcLiteParams !== 'undefined' && ctcLiteParams.currency
@@ -29,12 +31,27 @@ export default function Edit( { attributes, setAttributes } ) {
 		price = '',
 		description = '',
 		badge = '',
+		buttonColor = '',
 	} = attributes;
 	const hasProduct = name || image || price || description;
 
 	return (
 		<>
 			<InspectorControls>
+				<PanelColorSettings
+					title={ __( 'Button color', 'ctcl-product-display' ) }
+					colorSettings={ [
+						{
+							value: buttonColor,
+							onChange: ( value ) =>
+								setAttributes( { buttonColor: value || '' } ),
+							label: __(
+								'Button background',
+								'ctcl-product-display'
+							),
+						},
+					] }
+				/>
 				<PanelBody
 					title={ __( 'Product image', 'ctcl-product-display' ) }
 					initialOpen
@@ -153,7 +170,12 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 			</InspectorControls>
 
-			<div { ...useBlockProps( { className: 'ctcl-product-editor' } ) }>
+			<div
+				{ ...useBlockProps( {
+					className: 'ctcl-product-editor',
+					style: buttonStyle( buttonColor ),
+				} ) }
+			>
 				<div className="ctcl-product-editor__header">
 					<div>
 						<span>

@@ -2,6 +2,7 @@
 
 import { useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
+import buttonStyle from './button-style';
 
 const getCurrency = () =>
 	typeof ctcLiteParams !== 'undefined' && ctcLiteParams.currency
@@ -16,10 +17,11 @@ export default function save( { attributes } ) {
 		price = '',
 		description = '',
 		badge = '',
+		buttonColor = '',
 	} = attributes;
 
 	return (
-		<div { ...useBlockProps.save() }>
+		<div { ...useBlockProps.save( { style: buttonStyle( buttonColor ) } ) }>
 			<article className="ctcl-product-display">
 				<div className="ctcl-product-display__media">
 					{ image && <img src={ image } alt={ name } /> }
