@@ -1,96 +1,195 @@
-import { PanelBody, Button,TextControl  } from '@wordpress/components';
+/* global ctcLiteParams */
 
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
+import {
+	Button,
+	PanelBody,
+	TextControl,
+	TextareaControl,
+} from '@wordpress/components';
+import {
+	InspectorControls,
+	MediaUpload,
+	MediaUploadCheck,
+	useBlockProps,
+} from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps ,MediaUpload, MediaUploadCheck} from '@wordpress/block-editor';
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 import './editor.scss';
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {WPElement} Element to render.
- */
-export default function Edit({attributes,setAttributes}) {
+const getCurrency = () =>
+	typeof ctcLiteParams !== 'undefined' && ctcLiteParams.currency
+		? ctcLiteParams.currency.toUpperCase()
+		: 'USD';
 
-
-
+export default function Edit( { attributes, setAttributes } ) {
+	const {
+		name = '',
+		image = '',
+		pageLink = '',
+		price = '',
+		description = '',
+		badge = '',
+	} = attributes;
+	const hasProduct = name || image || price || description;
 
 	return (
-		<div { ...useBlockProps() }>
-		<div style={{height:'280px'}}>
-
-<div>
-				<TextControl
-					label={__("Product Name","ctcl-product-display")}
-					value={ attributes.name }
-					onChange={ value  => setAttributes({name:value}) }
-				/>
-</div>
-<div>
-				<TextControl
-					label={__("Price","ctcl-product-display")}
-					value={ attributes.price}
-					type='number'
-					onChange={ value => setAttributes({price:value}) }
-				/>
-
-</div>
-<div>
-
-				<TextControl
-					label={__("Product URL","ctcl-product-display")}
-					value={ attributes.pageLink }
-					onChange={ value  => setAttributes({pageLink :value}) }
-				/>				
-</div>
-
-
-
-			
-
-			<div style={{float:"left",marginBottom:'30px',display:'block'}}>
-			<MediaUploadCheck>
-					<MediaUpload
-						onSelect={media => setAttributes({ image: media.url })}
-						allowedTypes={['image']}
-						render={({ open }) => (
-							<Button style={{ border: '1px solid rgba(0,0,0,1)', float:"right",margin:"10px" }} onClick={open}>{ 0< attributes.image.length ? __('Change Image','ctcl-product-display') :__('Select Image', 'ctcl-product-display')}</Button>
-						)}
+		<>
+			<InspectorControls>
+				<PanelBody
+					title={ __( 'Product details', 'ctcl-product-display' ) }
+					initialOpen
+				>
+					<TextControl
+						label={ __( 'Product name', 'ctcl-product-display' ) }
+						value={ name }
+						onChange={ ( value ) =>
+							setAttributes( { name: value } )
+						}
 					/>
-				</MediaUploadCheck>
-</div>
+					<TextareaControl
+						label={ __(
+							'Short description',
+							'ctcl-product-display'
+						) }
+						help={ __(
+							'Keep it concise—one or two lines works best.',
+							'ctcl-product-display'
+						) }
+						value={ description }
+						onChange={ ( value ) =>
+							setAttributes( { description: value } )
+						}
+					/>
+					<TextControl
+						label={ __( 'Price', 'ctcl-product-display' ) }
+						type="number"
+						min="0"
+						step="0.01"
+						value={ price }
+						onChange={ ( value ) =>
+							setAttributes( { price: value } )
+						}
+					/>
+					<TextControl
+						label={ __( 'Badge', 'ctcl-product-display' ) }
+						help={ __(
+							'Optional, for example “New” or “Popular”.',
+							'ctcl-product-display'
+						) }
+						value={ badge }
+						onChange={ ( value ) =>
+							setAttributes( { badge: value } )
+						}
+					/>
+					<TextControl
+						label={ __( 'Product URL', 'ctcl-product-display' ) }
+						type="url"
+						value={ pageLink }
+						onChange={ ( value ) =>
+							setAttributes( { pageLink: value } )
+						}
+					/>
+				</PanelBody>
+			</InspectorControls>
 
+			<div { ...useBlockProps( { className: 'ctcl-product-editor' } ) }>
+				<div className="ctcl-product-editor__header">
+					<div>
+						<span>
+							{ __(
+								'Related product card',
+								'ctcl-product-display'
+							) }
+						</span>
+						<p>
+							{ __(
+								'Edit product details in the sidebar.',
+								'ctcl-product-display'
+							) }
+						</p>
+					</div>
+					<MediaUploadCheck>
+						<MediaUpload
+							onSelect={ ( media ) =>
+								setAttributes( { image: media.url } )
+							}
+							allowedTypes={ [ 'image' ] }
+							render={ ( { open } ) => (
+								<Button variant="secondary" onClick={ open }>
+									{ image
+										? __(
+												'Replace image',
+												'ctcl-product-display'
+										  )
+										: __(
+												'Add image',
+												'ctcl-product-display'
+										  ) }
+								</Button>
+							) }
+						/>
+					</MediaUploadCheck>
+				</div>
+				{ ! hasProduct && (
+					<div className="ctcl-product-editor__empty">
+						<strong>
+							{ __(
+								'Build a related product card',
+								'ctcl-product-display'
+							) }
+						</strong>
+						<p>
+							{ __(
+								'Add an image, then use the sidebar to enter product details.',
+								'ctcl-product-display'
+							) }
+						</p>
+					</div>
+				) }
+				<div className="ctcl-product-display">
+					<div className="ctcl-product-display__media">
+						{ image ? (
+							<img src={ image } alt="" />
+						) : (
+							<div
+								className="ctcl-product-display__placeholder"
+								aria-hidden="true"
+							/>
+						) }
+						{ badge && (
+							<span className="ctcl-product-display__badge">
+								{ badge }
+							</span>
+						) }
+					</div>
+					<div className="ctcl-product-display__content">
+						<h3 className="ctcl-product-display__title">
+							{ name ||
+								__( 'Product name', 'ctcl-product-display' ) }
+						</h3>
+						{ description && (
+							<p className="ctcl-product-display__description">
+								{ description }
+							</p>
+						) }
+						<div className="ctcl-product-display__footer">
+							<div className="ctcl-product-display__price">
+								<span>
+									{ __( 'Price', 'ctcl-product-display' ) }
+								</span>
+								<strong>
+									{ price || '0.00' }{ ' ' }
+									<small>{ getCurrency() }</small>
+								</strong>
+							</div>
+							<span className="ctcl-product-display__link">
+								{ __( 'View product', 'ctcl-product-display' ) }{ ' ' }
+								<span aria-hidden="true">→</span>
+							</span>
+						</div>
+					</div>
+				</div>
 			</div>
-
-			<div className='ctcl-product-display' style={{marginLeft:'auto',marginRight:"auto",display:'block',border:'1px solid rgba(0,0,0,1)'}} >
-
-				{0< attributes.image.length && <div style={{margin:'3px'}}> <img style={{width:'100%',height:'auto'}} src={attributes.image}/> </div>}
-				{0< attributes.name.length && <div > <h5 style={{textAlign:'center'}}>{ attributes.name}</h5> </div>}	
-				{0< attributes.price.length && <div style={{margin:'3px'}}> <span style={{textAlign:'center'}}>{__('Price ','ctcl-product-display')+'('+ctcLiteParams.currency.toUpperCase()+') : '}</span><span style={{textAlign:'center'}}>{attributes.price}</span> </div>}		
-				{0< attributes.pageLink.length && <div style={{margin:'3px'}} > <a style={{textAlign:'right'}} href={attributes.pageLink}>{__('More Info','ctcl-product-display')}</a> </div>}	
-			</div>
-
-		</div>
+		</>
 	);
 }

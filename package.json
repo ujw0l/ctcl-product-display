@@ -1,6 +1,6 @@
 {
 	"name": "ctcl-product-display",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Block to display products for CT Commerce Lite ecommerce plugin.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",

@@ -1,8 +1,8 @@
 === CTCL Product Display ===
 Contributors:      UjW0L        
 Tags:              block, ctc-lite, display
-Tested up to:      6.7
-Stable tag:        0.1.0
+Tested up to:      7.1
+Stable tag:        0.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,11 @@ Use column block from built in blocks and add this block to each column.
 
 == Changelog ==
 
+= 0.2.0 =
+* Redesigned the related-product card with a modern, responsive interface.
+* Improved the block editor workflow with sidebar controls and a live preview.
+* Added optional product descriptions and badges.
+* Improved accessibility, focus states, and reduced-motion support.
+
 = 0.1.0 =
 * Release
-

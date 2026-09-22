@@ -4,7 +4,7 @@
  * Description:       Product display block for CT Commerce Lite ecommerce plugin.
  * Requires at least: 6.3.1
  * Requires PHP:      7.0
- * Version:           0.1.0
+ * Version:           0.2.0
  * Author:            The WordPress Contributors
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html

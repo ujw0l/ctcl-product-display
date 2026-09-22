@@ -4,6 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 import { registerBlockType } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -19,6 +20,7 @@ import './style.scss';
  */
 import Edit from './edit';
 import save from './save';
+import deprecated from './deprecated';
 import metadata from './block.json';
 
 /**
@@ -27,24 +29,15 @@ import metadata from './block.json';
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 registerBlockType( metadata.name, {
-
-
-
-
-	keywords: [__('Product', 'ctcl-product-display'), __('ecommerce', 'ctcl-product-display')],
-	attributes:{
-		name :{type:'String', default:""},
-		image : {type:'String', default:''},
-		pageLink :{type:'String', default:''},
-		price:{type:"Number",default:0.00 }, 
-		
-	},
-
-
+	keywords: [
+		__( 'Product', 'ctcl-product-display' ),
+		__( 'ecommerce', 'ctcl-product-display' ),
+	],
 	/**
 	 * @see ./edit.js
 	 */
 	edit: Edit,
+	deprecated,
 
 	/**
 	 * @see ./save.js

@@ -1,15 +1,48 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "create-block/ctcl-product-display",
-  "version": "0.1.0",
-  "title": "Ctcl Product Display",
+  "name": "ctcl-product-display/ctcl-product-display",
+  "version": "0.2.0",
+  "title": "CTCL Product Display",
   "category": "ctc-lite-blocks",
   "icon": "editor-insertmore",
   "example": {},
   "description": "Gutenberg block to display product in product page or home page for CT Commerce lite ecommerce plugin",
   "supports": {
-    "html": false
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "default": ""
+    },
+    "image": {
+      "type": "string",
+      "default": ""
+    },
+    "pageLink": {
+      "type": "string",
+      "default": ""
+    },
+    "price": {
+      "type": "string",
+      "default": ""
+    },
+    "description": {
+      "type": "string",
+      "default": ""
+    },
+    "badge": {
+      "type": "string",
+      "default": ""
+    }
   },
   "textdomain": "ctcl-product-display",
   "editorScript": "file:./index.js",

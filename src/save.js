@@ -1,31 +1,68 @@
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps } from '@wordpress/block-editor';
+/* global ctcLiteParams */
 
-/**
- * The save function defines the way in which the different attributes should
- * be combined into the final markup, which is then serialized by the block
- * editor into `post_content`.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#save
- *
- * @return {WPElement} Element to render.
- */
-export default function save({attributes}) {
+import { useBlockProps } from '@wordpress/block-editor';
+import { __ } from '@wordpress/i18n';
+
+const getCurrency = () =>
+	typeof ctcLiteParams !== 'undefined' && ctcLiteParams.currency
+		? ctcLiteParams.currency.toUpperCase()
+		: 'USD';
+
+export default function save( { attributes } ) {
+	const {
+		name = '',
+		image = '',
+		pageLink = '',
+		price = '',
+		description = '',
+		badge = '',
+	} = attributes;
+
 	return (
 		<div { ...useBlockProps.save() }>
-	<div className='ctcl-product-display' style={{marginLeft:'auto',marginRight:"auto",display:'block',border:'1px solid rgba(0,0,0,1)'}} >
-
-{0< attributes.image.length && <div style={{margin:'3px'}}> <img style={{width:'100%',height:'auto'}} src={attributes.image}/> </div>}
-{0< attributes.name.length && <div > <h5 style={{textAlign:'center'}}>{ attributes.name}</h5> </div>}	
-{0< attributes.price.length && <div style={{margin:'3px'}}> <span style={{textAlign:'center'}}>{__('Price ','ctcl-product-display')+'('+ctcLiteParams.currency.toUpperCase()+') : '}</span><span style={{textAlign:'center'}}>{attributes.price}</span> </div>}		
-{0< attributes.pageLink.length && <div style={{margin:'3px'}} > <a style={{textAlign:'right'}} href={attributes.pageLink}>{__('More Info','ctcl-product-display')}</a> </div>}	
-</div>
-
-</div>
+			<article className="ctcl-product-display">
+				<div className="ctcl-product-display__media">
+					{ image && <img src={ image } alt={ name } /> }
+					{ badge && (
+						<span className="ctcl-product-display__badge">
+							{ badge }
+						</span>
+					) }
+				</div>
+				<div className="ctcl-product-display__content">
+					{ name && (
+						<h3 className="ctcl-product-display__title">
+							{ name }
+						</h3>
+					) }
+					{ description && (
+						<p className="ctcl-product-display__description">
+							{ description }
+						</p>
+					) }
+					<div className="ctcl-product-display__footer">
+						{ price !== '' && (
+							<div className="ctcl-product-display__price">
+								<span>
+									{ __( 'Price', 'ctcl-product-display' ) }
+								</span>
+								<strong>
+									{ price } <small>{ getCurrency() }</small>
+								</strong>
+							</div>
+						) }
+						{ pageLink && (
+							<a
+								className="ctcl-product-display__link"
+								href={ pageLink }
+							>
+								{ __( 'View product', 'ctcl-product-display' ) }{ ' ' }
+								<span aria-hidden="true">→</span>
+							</a>
+						) }
+					</div>
+				</div>
+			</article>
+		</div>
 	);
 }
