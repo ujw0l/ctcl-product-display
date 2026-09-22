@@ -36,6 +36,67 @@ export default function Edit( { attributes, setAttributes } ) {
 		<>
 			<InspectorControls>
 				<PanelBody
+					title={ __( 'Product image', 'ctcl-product-display' ) }
+					initialOpen
+				>
+					{ image && (
+						<img
+							src={ image }
+							alt={ name }
+							style={ {
+								width: '100%',
+								height: 'auto',
+								marginBottom: '12px',
+							} }
+						/>
+					) }
+					<MediaUploadCheck>
+						<MediaUpload
+							allowedTypes={ [ 'image' ] }
+							onSelect={ ( media ) =>
+								setAttributes( { image: media.url } )
+							}
+							render={ ( { open } ) => (
+								<Button variant="secondary" onClick={ open }>
+									{ image
+										? __(
+												'Replace product image',
+												'ctcl-product-display'
+										  )
+										: __(
+												'Upload or select product image',
+												'ctcl-product-display'
+										  ) }
+								</Button>
+							) }
+						/>
+					</MediaUploadCheck>
+					<TextControl
+						label={ __( 'Image URL', 'ctcl-product-display' ) }
+						help={ __(
+							'Choose an image above or paste its direct URL here.',
+							'ctcl-product-display'
+						) }
+						type="url"
+						value={ image }
+						onChange={ ( value ) =>
+							setAttributes( { image: value } )
+						}
+					/>
+					{ image && (
+						<Button
+							variant="tertiary"
+							isDestructive
+							onClick={ () => setAttributes( { image: '' } ) }
+						>
+							{ __(
+								'Remove product image',
+								'ctcl-product-display'
+							) }
+						</Button>
+					) }
+				</PanelBody>
+				<PanelBody
 					title={ __( 'Product details', 'ctcl-product-display' ) }
 					initialOpen
 				>
